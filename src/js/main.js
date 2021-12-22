@@ -1,18 +1,12 @@
 function SearchChange() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
+    const [searchInput] = document.getElementsByClassName("search-input");
+    const filter = searchInput.value.toLowerCase();
+    const [contactsList] = document.getElementsByClassName("contacts-list");
+    const contacts = Array.from(contactsList.getElementsByClassName("contact-name"));
 
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-
+    contacts.forEach(contact => {
+        const [anchor] = contact.getElementsByTagName("a");
+        const contactName = anchor.textContent || anchor.innerText;
+        contact.style.display = contactName.toLowerCase().indexOf(filter) > -1 ? "block" : "none";
+    });
 }
